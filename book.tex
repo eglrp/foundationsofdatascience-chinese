@@ -1,0 +1,152 @@
+% !TeX program = xelatex
+\documentclass[twoside,fancyhdr,openany,UTF8,a4paper]{ctexbook}
+\ctexset{chapter={
+		name={第,章},
+		beforeskip = 0pt,
+		format = \Huge\bfseries,
+		nameformat = \par\bigskip\bigskip\bigskip\bigskip,
+		number = \arabic{chapter},
+		aftername = \quad,
+		aftertitle = \par\bigskip\nointerlineskip\rule{\linewidth}{1bp}\par
+	},
+	section={
+		format = \large\bfseries
+	}
+}
+\usepackage{emptypage}
+\usepackage[pdfpagelabels=true,
+	pdffitwindow=false,
+	pdfview=FitH,
+	pdfstartview=FitH,
+	pagebackref=true,
+	backref=false,
+	breaklinks=true,
+	hidelinks=true,
+	bookmarks=true,
+	bookmarksnumbered=true,
+	bookmarksopen=true,
+	bookmarksopenlevel=1,
+	bookmarksdepth=1,
+	plainpages=true]{hyperref}
+\usepackage{framed}
+\usepackage{amsmath,bm}
+\usepackage{amsthm}
+\usepackage{makeidx}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage[top=2.54cm, bottom=2.54cm, left=3.17cm, right=3.17cm]{geometry}
+
+\renewcommand{\chaptermark}[1]%
+{\markboth{{\CTEXthechapter\ #1}}{}}
+\renewcommand{\sectionmark}[1]%
+{\markright{{\CTEXthesection\ #1}}}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]%
+{\markboth{{\CTEXthechapter\ #1}}{}}
+\renewcommand{\sectionmark}[1]%
+{\markright{{\CTEXthesection\ #1}}}
+\fancyhf{}
+\fancyhead[RE,LO]{\small$\cdot$\thepage $\cdot$}
+\fancyhead[CO]{\small\textbf{\leftmark}}
+\fancyhead[CE]{\small\textbf{\rightmark}}
+\fancypagestyle{plain}{%
+	\fancyhead{} % get rid of headers
+	\renewcommand{\headrulewidth}{0pt} % and the line
+}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{定理}[chapter]
+\theoremstyle{plain}
+\newtheorem{prop}[theorem]{命题}
+\theoremstyle{plain}
+\newtheorem{corollary}[theorem]{推论}
+\theoremstyle{plain}
+\newtheorem{lemma}[theorem]{引理}
+\theoremstyle{definition}
+\newtheorem*{note}{注记}
+\theoremstyle{definition}
+\newtheorem{define}{定义}[chapter]
+\theoremstyle{definition}
+\newtheorem*{example}{例}
+\theoremstyle{definition}
+\newtheorem{problem}[theorem]{问题}
+\theoremstyle{plain}
+\newtheorem{exercise}{习题}[chapter]
+
+\usepackage[nomain,acronym,xindy,toc,nopostdot]{glossaries}
+\makeglossaries
+\usepackage[xindy]{imakeidx}
+\makeindex
+\input{terminology}
+\input{notations}
+\renewcommand{\qed}{\bqed}
+\newcommand{\firstgls}[1]{\textbf{\,\gls{#1}}（\glsdesc{#1}）}
+\newcommand{\innergls}[1]{\textbf{\,\gls{#1}}，\glsdesc{#1}}	\newcommand{\firstacr}[1]{\textbf{\,\gls{#1}}（\glssymbol{#1}）}
+\newcommand{\cleangls}[1]{\,\gls*{#1}（\glsdesc*{#1}）}
+\newcommand{\cleanacr}[1]{\gls*{#1}（\glssymbol*{#1}）}
+\newcommand{\glsacr}[1]{\gls{#1}（\glssymbol{#1}）}
+\newcommand{\firstall}[1]{\textbf{\,\gls{#1}}（\glsdesc{#1}, \glssymbol{#1}）}
+\newcommand{\ENNAME}[1]{\text{#1}}
+\newcommand{\NUMTEXT}[1]{\text{#1}}
+\newcommand{\figref}[1]{图\,\ref{#1}\,}
+\newcommand{\chapref}[1]{第\ref{#1}章}
+\newcommand{\secref}[1]{第\,\ref{#1}\,节}
+\newcommand{\algref}[1]{算法\,\ref{#1}\,}
+\newcommand{\eqnref}[1]{式\,\eqref{#1}\,}
+
+% Chapter 4 tabularx
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\usepackage[justification=centering]{caption}
+
+\usetikzlibrary{positioning,arrows.meta,bending}
+\newcommand{\at}[2]{\left. #1 \right|_{#2}}
+
+% Image placeholders
+\newif\ifDraftVerison
+\DraftVerisontrue
+
+% CH2 separating Gaussian algorithm
+\usepackage{changepage}
+
+% Renew Chinese proof
+\renewcommand{\proofname}{\textbf{证明}}
+
+% Index page
+\AtBeginDocument{\renewcommand{\indexname}{索引（按英文首字母排序）}}
+
+\title{\Huge 数据科学基础\\\Large Foundations of Data Science\\\vspace{1cm}\textit{$2017$年$6$月$14$日稿}}
+\author{\textbf{[美]} 埃弗里姆·布卢姆\and 约翰·霍普克罗夫特\and 拉温德雷恩·坎南\ 著\and\vspace{0.5cm}\\中国科学院大学\ 计算机科学与技术系\\张远航\ 李勰\ 译}
+\begin{document}
+	\frontmatter
+	\maketitle
+	\pagenumbering{roman}
+	\input{preface.tex}
+	\let\cleardoublepage\clearpage
+	\addcontentsline{toc}{chapter}{目录}
+	\tableofcontents
+	\cleardoublepage
+	
+	\mainmatter
+	\pagenumbering{arabic}
+	\input{chapter1.tex}
+	\input{chapter2.tex}
+	\input{chapter3.tex}
+	\input{chapter4.tex}
+	\input{chapter5.tex}
+	\input{chapter6.tex}
+	\input{chapter7.tex}
+	\input{chapter8.tex}
+	\input{chapter9.tex}
+	\input{chapter10.tex}
+	\input{chapter11.tex}
+	\input{chapter12.tex}
+	
+	\backmatter
+	\printglossary[title=术语]
+	\printindex
+	\addcontentsline{toc}{chapter}{索引（按英文首字母排序）} 
+\end{document}
